@@ -681,6 +681,32 @@ article { display: none; }
     margin-bottom: 7px;
 }
 
+.timeline-item-subtitle {
+    font-family: var(--ff-poppins);
+    font-size: var(--fs7);
+    font-weight: var(--fw500);
+    color: var(--orange-yellow-crayola);
+    background: linear-gradient(to right, var(--orange-yellow-crayola), var(--vegas-gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.timeline-item-subtitle::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 12px;
+    color: var(--orange-yellow-crayola);
+    transform: scale(1.2);
+}
+
 .timeline-text {
     color: var(--light-gray);
     font-weight: var(--fw300);
