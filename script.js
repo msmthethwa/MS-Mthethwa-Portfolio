@@ -47,6 +47,7 @@ const select = document.querySelector('[data-select]');
 const selectItems = document.querySelectorAll('[data-select-item]');
 const selectValue = document.querySelector('[data-select-value]');
 const filterBtn = document.querySelectorAll('[data-filter-btn]');
+const searchInput = document.getElementById('tutorial-search');
 
 select.addEventListener('click', function () {elementToggleFunc(this); });
 
@@ -56,21 +57,27 @@ for(let i = 0; i < selectItems.length; i++) {
         let selectedValue = this.innerText.toLowerCase();
         selectValue.innerText = this.innerText;
         elementToggleFunc(select);
-        filterFunc(selectedValue);
+        combinedFilter(selectedValue, searchInput.value.trim().toLowerCase());
 
     });
 }
 
 const filterItems = document.querySelectorAll('[data-filter-item]');
 
-const filterFunc = function (selectedValue) {
+const combinedFilter = function (selectedValue, searchText) {
     for(let i = 0; i < filterItems.length; i++) {
-        if(selectedValue == "all") {
-            filterItems[i].classList.add('active');
-        } else if (selectedValue == filterItems[i].dataset.category) {
-            filterItems[i].classList.add('active');
+        const item = filterItems[i];
+        const category = item.dataset.category;
+        const title = item.querySelector('.project-title').innerText.toLowerCase();
+        const description = item.querySelector('.project-category').innerText.toLowerCase();
+
+        const categoryMatch = (selectedValue === "all") || (category === selectedValue);
+        const searchMatch = title.includes(searchText) || description.includes(searchText);
+
+        if(categoryMatch && searchMatch) {
+            item.classList.add('active');
         } else {
-            filterItems[i].classList.remove('active');
+            item.classList.remove('active');
         }
     }
 }
@@ -85,7 +92,7 @@ for (let i = 0; i < filterBtn.length; i++) {
 
         let selectedValue = this.innerText.toLowerCase();
         selectValue.innerText = this.innerText;
-        filterFunc(selectedValue);
+        combinedFilter(selectedValue, searchInput.value.trim().toLowerCase());
 
         lastClickedBtn.classList.remove('active');
         this.classList.add('active');
@@ -93,6 +100,12 @@ for (let i = 0; i < filterBtn.length; i++) {
 
     })
 }
+
+searchInput.addEventListener('input', function() {
+    const selectedValue = selectValue.innerText.toLowerCase();
+    const searchText = this.value.trim().toLowerCase();
+    combinedFilter(selectedValue, searchText);
+});
 
 // Enabling Contact Form
 
