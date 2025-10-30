@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "build": "echo 'Build complete - static site ready for deployment'"
+  },
+  "dependencies": {
+    "firebase": "^12.4.0"
+  }
+}
